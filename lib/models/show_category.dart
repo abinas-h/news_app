@@ -1,3 +1,5 @@
+//this class is the model class for the category  which will hold the article details.
+
 class ShowCategoryModel{
   String? author;
   String? title;

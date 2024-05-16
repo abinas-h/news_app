@@ -1,3 +1,6 @@
+//this class is the model class fo slider which will hold the article details.
+
+
 class SliderModel{
   String? author;
   String? title;

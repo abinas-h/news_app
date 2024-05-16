@@ -1,3 +1,5 @@
+// This class is the model class of Aritcle 
+
 class ArticleModel {
   String? author;
   String? title;

@@ -6,7 +6,9 @@ import 'package:news_app/pages/article_view.dart';
 import 'package:news_app/services/news.dart';
 import 'package:news_app/services/slider_data.dart';
 
+// StatefulWidget to display all news articles
 class AllNews extends StatefulWidget {
+  // The type of news (e.g., "Breaking" or "Trending")
   String news;
   AllNews({required this.news});
 
@@ -15,24 +17,29 @@ class AllNews extends StatefulWidget {
 }
 
 class _AllNewsState extends State<AllNews> {
-  List<SliderModel> sliders = [];
-  List<ArticleModel> articles = [];
+  List<SliderModel> sliders = [];// Lists to hold slider and article data
+  List<ArticleModel> articles = [];// Boolean to show loading status
   bool loading = true;
 
   void initState() {
+    // Fetch slider and article data when the widget is initialized
     getSlider();
     super.initState();
     getNews();
   }
 
+// Function to fetch all news articles
   getNews() async {
     News newsClass = News();
     await newsClass.getNews();
     articles = newsClass.news;
 
+// Update the UI to reflect changes
     setState(() {});
   }
 
+
+ // Function to fetch slider dat
   getSlider() async {
     Sliders slider = new Sliders();
     await slider.getSlider();
@@ -54,6 +61,8 @@ class _AllNewsState extends State<AllNews> {
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 10.0),
+
+         // List view to display all news articles
         child: ListView.builder(
             shrinkWrap: true,
             physics: ClampingScrollPhysics(),
@@ -80,7 +89,11 @@ class _AllNewsState extends State<AllNews> {
   }
 }
 
+
+// StatelessWidget to display individual news articles
 class AllNewsSection extends StatelessWidget {
+
+   // Fields to hold article details
   String image, desc, title, url;
   AllNewsSection(
       {required this.image,
@@ -91,6 +104,7 @@ class AllNewsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      // Navigate to the ArticleView page when the article is tapped
       onTap: () {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => ArticleView(blogUrl: url)));
@@ -110,6 +124,7 @@ class AllNewsSection extends StatelessWidget {
           SizedBox(
             height: 5.0,
           ),
+           // Display article title
           Text(
             title,
             maxLines: 2,

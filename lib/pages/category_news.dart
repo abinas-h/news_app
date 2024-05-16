@@ -4,6 +4,8 @@ import 'package:news_app/models/show_category.dart';
 import 'package:news_app/pages/article_view.dart';
 import 'package:news_app/services/show_category_news.dart';
 
+
+// Stateful widget to display news articles of a specific category
 class CategoryNews extends StatefulWidget {
   String name;
   CategoryNews({required this.name});
@@ -13,14 +15,16 @@ class CategoryNews extends StatefulWidget {
 }
 
 class _CategoryNewsState extends State<CategoryNews> {
-  List<ShowCategoryModel> categories = [];
-  bool loading = true;
+  List<ShowCategoryModel> categories = []; // List to hold category news articles
+  bool loading = true; // Boolean to show loading indicator
 
   void initState() {
     super.initState();
+    // Fetch news articles when the widget is initialized
     getNews();
   }
 
+// Function to fetch news articles of the specified category
   getNews() async {
     ShowCategoryNews showCategoryNews = ShowCategoryNews();
     await showCategoryNews.getCategoriesNews(widget.name.toLowerCase());
@@ -33,7 +37,9 @@ class _CategoryNewsState extends State<CategoryNews> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
+      // Display the category name in the app bar
         title: Text(
           widget.name,
           style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
@@ -43,11 +49,13 @@ class _CategoryNewsState extends State<CategoryNews> {
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 10.0),
+        // List view to display news articles
         child: ListView.builder(
             shrinkWrap: true,
             physics: ClampingScrollPhysics(),
             itemCount: categories.length,
             itemBuilder: (context, index) {
+              // Return a custom widget for each news article
               return ShowCategory(
                 image: categories[index].urlToImage!,
                 desc: categories[index].description!,
@@ -60,6 +68,8 @@ class _CategoryNewsState extends State<CategoryNews> {
   }
 }
 
+
+// Stateless widget to display individual news article
 class ShowCategory extends StatelessWidget {
   String image, desc, title, url;
   ShowCategory(
@@ -90,6 +100,8 @@ class ShowCategory extends StatelessWidget {
           SizedBox(
             height: 5.0,
           ),
+
+          // Display article title
           Text(
             title,
             maxLines: 2,
@@ -98,6 +110,8 @@ class ShowCategory extends StatelessWidget {
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold),
           ),
+
+           // Display article description
           Text(
             desc,
             maxLines: 3,

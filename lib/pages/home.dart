@@ -21,19 +21,21 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<CategoryModel> categories = [];
-  List<SliderModel> sliders = [];
-  List<ArticleModel> articles = [];
-  bool loading = true;
-  int activeIndex = 0;
+  List<CategoryModel> categories = []; //List to store category data
+  List<SliderModel> sliders = []; //list to store slider data
+  List<ArticleModel> articles = []; // list to store article data
+  bool loading = true; // Flage to manage loading state
+  int activeIndex = 0; //Active index for carousel slider
+
   @override
   void initState() {
-    categories = getCategories();
-    getSlider();
+    categories = getCategories(); // Fetch categories on initialization
+    getSlider(); // Fetch slider data on initialization
     super.initState();
-    getNews();
+    getNews(); // Fetch news articles on initialization
   }
 
+// Fetches news articles asynchronously
   getNews() async {
     News newsClass = News();
     await newsClass.getNews();
@@ -44,6 +46,7 @@ class _HomeState extends State<Home> {
     });
   }
 
+// Fetches slider data asynchronously
   getSlider() async {
     Sliders slider = new Sliders();
     await slider.getSlider();
@@ -75,12 +78,13 @@ class _HomeState extends State<Home> {
         elevation: 0.0,
       ),
       body: loading
-          ? Center(child: CircularProgressIndicator())
+          ? Center(child: CircularProgressIndicator()) // Show loading indicator
           : SingleChildScrollView(
               child: Container(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Categories section
                     Container(
                       margin: EdgeInsets.only(left: 20.0),
                       height: 70,
@@ -99,6 +103,8 @@ class _HomeState extends State<Home> {
                     const SizedBox(
                       height: 30.0,
                     ),
+
+                    // Breaking News header
                     Padding(
                       padding: EdgeInsets.only(left: 10.0, right: 10.0),
                       child: Row(
@@ -131,6 +137,8 @@ class _HomeState extends State<Home> {
                     const SizedBox(
                       height: 30.0,
                     ),
+
+                    // Carousel slider for breaking news
                     CarouselSlider.builder(
                         itemCount: 5,
                         itemBuilder: (context, index, realIndex) {
@@ -152,12 +160,15 @@ class _HomeState extends State<Home> {
                     const SizedBox(
                       height: 30.0,
                     ),
+                    // Indicator for the carousel
                     Center(
                       child: buildIndicator(),
                     ),
                     const SizedBox(
                       height: 30.0,
                     ),
+
+                    // Trending News header
                     Padding(
                       padding: EdgeInsets.only(left: 10.0, right: 10.0),
                       child: Row(
@@ -211,6 +222,7 @@ class _HomeState extends State<Home> {
     );
   }
 
+  // Builds an image for the carousel slider
   Widget buildImage(String image, int index, String name) => Container(
         margin: EdgeInsets.symmetric(horizontal: 5.0),
         child: Stack(children: [
@@ -245,6 +257,7 @@ class _HomeState extends State<Home> {
         ]),
       );
 
+// Builds an indicator for the carousel slider
   Widget buildIndicator() => AnimatedSmoothIndicator(
         activeIndex: activeIndex,
         count: 5,

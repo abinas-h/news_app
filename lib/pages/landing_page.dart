@@ -1,6 +1,9 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:news_app/pages/home.dart';
 
+// The main landing page of the application
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
 
@@ -16,6 +19,7 @@ class _LandingPageState extends State<LandingPage> {
         margin: EdgeInsets.symmetric(horizontal: 7.0, vertical: 7.0),
         child: Column(
           children: [
+            // Display the landing page image with elevation and rounded corners
             Material(
               elevation: 3.0,
               borderRadius: BorderRadius.circular(20),
@@ -30,6 +34,7 @@ class _LandingPageState extends State<LandingPage> {
               ),
             ),
             SizedBox(
+              // Main heading text
               height: 20.0,
             ),
             Text(
@@ -43,6 +48,7 @@ class _LandingPageState extends State<LandingPage> {
               height: 20.0,
             ),
             Center(
+              //subheading text
               child: Text(
                 "Stay Informed, Stay Ahead: Your\n       News, Anytime, Anywhere.",
                 style: TextStyle(
@@ -54,13 +60,13 @@ class _LandingPageState extends State<LandingPage> {
             SizedBox(
               height: 40.0,
             ),
+
+            // "Get Started" button to navigate to the Home page
             GestureDetector(
-
-              onTap: (){
-                 Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const Home()));
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const Home()));
               },
-
               child: Container(
                 width: MediaQuery.of(context).size.width / 1.2,
                 child: Material(
